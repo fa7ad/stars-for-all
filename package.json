@@ -15,6 +15,7 @@
     "razzle": "^0.8.14",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "route-matcher": "^0.1.0"
   }
 }

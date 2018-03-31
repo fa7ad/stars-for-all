@@ -4,9 +4,18 @@ import Switch from 'react-router-dom/Switch'
 import Home from './Home'
 import './App.css'
 
+export const routes = [
+  {
+    key: 0,
+    path: '/',
+    exact: true,
+    component: Home
+  }
+]
+
 const App = () => (
   <Switch>
-    <Route exact path='/' component={Home} />
+    {routes.map(route => <Route {...route} />)}
   </Switch>
 )
 
