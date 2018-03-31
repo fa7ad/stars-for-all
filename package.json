@@ -1,18 +1,20 @@
 {
-  "name": "stars-for-all",
-  "version": "1.0.0",
-  "description": "Star all of someone's repos xD",
-  "main": "app.js",
-  "repository": "git@github.com:fa7ad/stars-for-all.git",
-  "author": "Fahad Hossain <8bit.demoncoder@gmail.com> (https://fa7ad.github.io/)",
+  "name": "my-razzle-app",
+  "version": "2.0.0-alpha.2",
   "license": "MIT",
-  "private": false,
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "octonode": "^0.9.2",
-    "yenv": "^2.1.0"
-  },
-  "scripts": {
-    "start": "node app.js"
+    "pug": "^2.0.3",
+    "razzle": "^0.8.14",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-router-dom": "^4.2.2"
   }
 }

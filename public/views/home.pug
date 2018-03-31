@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Stars for All
+    if assets.client.css
+      link(rel="stylesheet", href=assets.client.css)
+    if env.NODE_ENV === 'production'
+      script(src=assets.client.js, defer)
+    else
+      script(src=assets.client.js, defer crossorigin)
+  body
+    #root!= markup
