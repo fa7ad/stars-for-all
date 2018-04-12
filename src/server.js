@@ -1,8 +1,10 @@
 import url from 'url'
 import path from 'path'
+import helmet from 'helmet'
 import Express from 'express'
 import github from 'octonode'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import session from 'express-session'
 import makeMemoryStore from 'memorystore'
 
@@ -33,9 +35,11 @@ const reactRouting = makeRoutingMiddleware(routes, App, assets)
 
 const server = new Express()
 server
-  .disable('x-powered-by')
+  .use(helmet())
+  .use(compression())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
+  .use(session(sessionConf))
 
 if (server.get('env') === 'production') {
   server.set('trust proxy', 1)
@@ -43,11 +47,9 @@ if (server.get('env') === 'production') {
 }
 
 server
-  .use(session(sessionConf))
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
-  .use(reactRouting)
   .all('/login', function (req, res) {
     res.redirect(302, authUrl)
   })
@@ -57,12 +59,11 @@ server
     } else {
       github.auth.login(req.query.code, function (err, token, headers) {
         if (err) console.error(err)
-
-        req.session.token = token
-
+        Object.assign(req.session, { token })
         res.redirect(302, '/')
       })
     }
   })
+  .use(reactRouting)
 
 export default server
