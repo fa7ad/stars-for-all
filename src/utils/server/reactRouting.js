@@ -12,6 +12,10 @@ export default function (routes, Component, assets) {
   return function (req, res, next) {
     const pathMatches = matchedRoutes(req.url)
     if (!pathMatches || pathMatches.length < 1) return next()
+    if (!routeMatcher('/').parse(req.url) && !req.session.token) {
+      res.redirect(403, '/')
+      return next()
+    }
 
     const context = {}
     const markup = renderToString(
