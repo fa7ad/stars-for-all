@@ -39,14 +39,14 @@ server
   .use(compression())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .use(session(sessionConf))
 
 if (server.get('env') === 'production') {
   server.set('trust proxy', 1)
-  sessionConf.cookie.secure = true
+  Object.assign(sessionConf, { cookie: { secure: true } })
 }
 
 server
+  .use(session(sessionConf))
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
@@ -60,7 +60,7 @@ server
       github.auth.login(req.query.code, function (err, token, headers) {
         if (err) console.error(err)
         Object.assign(req.session, { token })
-        res.redirect(302, '/')
+        res.redirect(`/?id=${req.session.id}`)
       })
     }
   })

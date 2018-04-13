@@ -1,19 +1,22 @@
+import url from 'url'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 
-import { routeMatcher } from 'route-matcher'
+const routeMatcher = (uri, route) => {
+  const link = url.parse(uri)
+  return route === link.path.replace(link.search || '', '')
+}
 
 export default function (routes, Component, assets) {
-  // Returns routes that match the passed in url
-  const matchedRoutes = url =>
-    routes.map(r => routeMatcher(r.path).parse(url)).filter(r => r)
-
   return function (req, res, next) {
-    const pathMatches = matchedRoutes(req.url)
-    if (!pathMatches || pathMatches.length < 1) return next()
-    if (!routeMatcher('/').parse(req.url) && !req.session.token) {
-      res.redirect(403, '/')
+    if (!routeMatcher(req.url, '/') && !req.session.token) {
+      res.status(403).render('redirect', {
+        url: '/',
+        timeout: 3,
+        title: 'Unautorized, redirecting...',
+        placeholder: "Please click here, if you're not redirected automatically"
+      })
       return next()
     }
 
