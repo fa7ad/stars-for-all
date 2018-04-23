@@ -1,0 +1,19 @@
+.Home {
+  flex-basis: 100%;
+
+  display: flex;
+}
+.al-c {
+  align-items: center;
+}
+.ju-c{
+  justify-content: center;
+}
+
+.p-5 {
+  padding: 0.5em;
+}
+
+.bg-white {
+  background-color: #fff;
+}

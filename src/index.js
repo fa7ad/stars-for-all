@@ -6,20 +6,18 @@ const server = http.createServer(app)
 let currentApp = app
 
 server.listen(process.env.PORT || 3000, error => {
-  if (error) {
-    console.log(error)
-  }
+  if (error) console.error(error)
 
-  console.log('🚀 started')
+  console.log('🚀 Razzle server started')
 })
 
 if (module.hot) {
-  console.log('✅  Server-side HMR Enabled!')
+  console.log('✅ Server-side HMR Enabled!')
 
   module.hot.accept('./server', () => {
-    console.log('🔁  HMR Reloading `./server`...')
+    console.log('🔁 HMR Reloading `./server`...')
     server.removeListener('request', currentApp)
-    const newApp = require('./server').default
+    const { default: newApp } = require('./server')
     server.on('request', newApp)
     currentApp = newApp
   })

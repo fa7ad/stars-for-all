@@ -8,8 +8,8 @@ import compression from 'compression'
 import session from 'express-session'
 import makeMemoryStore from 'memorystore'
 
-import App, { routes } from './App'
-import makeRoutingMiddleware from './utils/server/reactRouting'
+import App, { routes } from './components/App'
+import makeRoutingMiddleware from './utils/reactRouting'
 
 // Handle GitHub auth using octonode
 const authUrl = github.auth
@@ -50,10 +50,10 @@ server
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
-  .all('/login', function (req, res) {
+  .all('/login', (req, res) => {
     res.redirect(302, authUrl)
   })
-  .get('/auth', function (req, res) {
+  .get('/auth', (req, res) => {
     if (!state || state !== req.query.state) {
       res.status(403).send('Failed to authenticate')
     } else {
@@ -63,6 +63,9 @@ server
         res.redirect(`/?id=${req.session.id}`)
       })
     }
+  })
+  .post('/verify', (req, res) => {
+    res.json({ok: req.body.id && req.session.id === req.body.id, id: req.body.id})
   })
   .use(reactRouting)
 
