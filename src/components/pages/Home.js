@@ -1,9 +1,28 @@
 import React from 'react'
 import qs from 'qs'
-
-import { Input } from 'antd'
+import req from '../../utils/request'
+import { Input, Button, Icon } from 'antd'
 
 import './Home.css'
+
+const UserInput = p => (
+  <label className='p-5 bg-white'>
+    GitHub Username: <Input
+      type='text'
+      placeholder='@fa7ad'
+      onChange={e => {
+        p.onType(e.currentTarget.value)
+      }}
+      addonAfter={<Icon type='enter' />}
+    />
+  </label>
+)
+
+const GHAuthorize = p => (
+  <Button onClick={e => window.location.replace(p.path)}>
+    Authorize GitHub
+  </Button>
+)
 
 class Home extends React.Component {
   state = {
@@ -13,10 +32,9 @@ class Home extends React.Component {
   render () {
     return (
       <div className='Home al-c ju-c'>
-        <label className='p-5 bg-white'>
-          GitHub Username:
-          <Input type='text' placeholder='@fa7ad' />
-        </label>
+        {this.state.loggedIn
+          ? <UserInput onType={text => console.log(text)} />
+          : <GHAuthorize path='/login' />}
       </div>
     )
   }
@@ -24,18 +42,12 @@ class Home extends React.Component {
   componentDidMount () {
     const { location } = this.props
     if (location && location.search) {
-      const parsed = qs.parse(location.search.slice(1))
-      fetch('/verify', {
-        method: 'POST',
-        body: JSON.stringify(parsed)
-      })
-        .then(r => r.json())
-        .then(res => {
-          if (res.ok && res.id === parsed.id) {
-            this.setState({
-              loggedIn: true
-            })
-          }
+      req
+        .url('/verify')
+        .json(qs.parse(location.search.slice(1)))
+        .post()
+        .json(res => {
+          this.setState({ loggedIn: res.ok })
         })
     }
   }

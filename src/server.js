@@ -1,4 +1,5 @@
 import url from 'url'
+import cors from 'cors'
 import path from 'path'
 import helmet from 'helmet'
 import Express from 'express'
@@ -21,10 +22,11 @@ const authUrl = github.auth
 const { query: { state } } = url.parse(authUrl, true)
 
 const MemoryStore = makeMemoryStore(session)
+const myMemStore = new MemoryStore({
+  checkPeriod: 3.6e7
+})
 const sessionConf = {
-  store: new MemoryStore({
-    checkPeriod: 3.6e6
-  }),
+  store: myMemStore,
   resave: true,
   saveUninitialized: false,
   secret: process.env.RAZZLE_SESSION_SECRET
@@ -33,10 +35,17 @@ const sessionConf = {
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 const reactRouting = makeRoutingMiddleware(routes, App, assets)
 
+const corsOpts = {
+  origin (origin, callback) {
+    callback(null, true)
+  },
+  credentials: true
+}
 const server = new Express()
 server
   .use(helmet())
   .use(compression())
+  .use(cors(corsOpts))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
 
@@ -60,12 +69,19 @@ server
       github.auth.login(req.query.code, function (err, token, headers) {
         if (err) console.error(err)
         Object.assign(req.session, { token })
-        res.redirect(`/?id=${req.session.id}`)
+        req.session.save(err => {
+          if (err) throw err
+          res.redirect(`/?id=${req.sessionID}`)
+        })
       })
     }
   })
   .post('/verify', (req, res) => {
-    res.json({ok: req.body.id && req.session.id === req.body.id, id: req.body.id})
+    myMemStore.get(req.body.id, function (err, session) {
+      if (err || !session) return res.json({ ok: false })
+      Object.assign(req.session, session)
+      res.json({ ok: true })
+    })
   })
   .use(reactRouting)
 

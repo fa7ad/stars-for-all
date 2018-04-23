@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "antd": "^3.4.3",
-    "babel-plugin-import": "^1.7.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "helmet": "^3.12.0",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "babel-plugin-import": "^1.7.0",
     "babel-plugin-transform-async-to-bluebird": "^1.1.1",
     "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
     "standard": "^11.0.1"
