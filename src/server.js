@@ -91,7 +91,7 @@ server
   })
   .get('/repos/:user', (req, res) => {
     if (!req.session.token) {
-      return res.status(403).json({ code: 403, message: 'Unauthorized!' })
+      return res.status(403).send({ code: 403, message: 'Unauthorized!' })
     }
     const client = github.client(req.session.token)
     client.user(req.params.user).reposAsync().then(data => {

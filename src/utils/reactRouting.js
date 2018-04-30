@@ -1,22 +1,31 @@
 import url from 'url'
 import React from 'react'
+import UrlPattern from 'url-pattern'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 
-const routeMatcher = (uri, route) => {
+const routeMatcher = (uri, route, exact = false) => {
   const link = url.parse(uri)
-  return route === link.path.replace(link.search || '', '')
+  const justUrl = link.path.replace(link.search || '', '')
+  const pattern = new UrlPattern(route)
+  return exact ? route === justUrl : pattern.match(justUrl) !== null
 }
 
-export default function (routes, Component, assets) {
+export default function (rawRoutes, Component, assets) {
   return function (req, res, next) {
-    if (!routeMatcher(req.url, '/') && !req.session.token) {
-      res.status(403).render('redirect', {
+    if (!req.session.token && !routeMatcher(req.url, '/', true)) {
+      const routes = rawRoutes
+        .map(r => r.path)
+        .filter(r => routeMatcher(req.url, r))
+      res.status(routes.length > 0 ? 403 : 404).render('redirect', {
         url: '/',
-        title: 'Unautorized request, redirecting...',
-        placeholder: 'Go Home!'
+        title: routes.length > 0
+          ? 'Unautorized request, redirecting...'
+          : '404 Not Found',
+        placeholder: 'Go Home!',
+        assets
       })
-      return next()
+      return
     }
 
     const context = {}

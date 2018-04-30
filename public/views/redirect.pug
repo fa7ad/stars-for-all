@@ -6,11 +6,31 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     meta(http-equiv="refresh", content=`3; url=${url}`)
     title= title
-    if assets.client.css
-      link(rel="stylesheet", href=assets.client.css)
+    style.
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+      }
+      #root {
+        flex-basis: 100%;
+        background: url(/bg.png) repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
     script.
       setTimeout(function () {
         window.location.replace("#{url}")
       }, 3e3)
   body
-    a(href=`${url}`)!= placeholder
+    #root
+      img(src="/spin.gif", alt="Redirecting...")
+      a(href=`${url}`)!= placeholder
