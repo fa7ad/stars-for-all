@@ -23,7 +23,7 @@ const { query: { state } } = url.parse(authUrl, true)
 
 const MemoryStore = makeMemoryStore(session)
 const myMemStore = new MemoryStore({
-  checkPeriod: 3.6e7
+  checkPeriod: 3.6e6
 })
 const sessionConf = {
   store: myMemStore,
@@ -78,9 +78,24 @@ server
   })
   .post('/verify', (req, res) => {
     myMemStore.get(req.body.id, function (err, session) {
-      if (err || !session) return res.json({ ok: false })
-      Object.assign(req.session, session)
+      if (err || (!session && !req.session.token)) {
+        return res.json({ ok: false })
+      }
+
+      !session && req.session.token
+        ? Object.assign(session, req.session)
+        : Object.assign(req.session, session)
+
       res.json({ ok: true })
+    })
+  })
+  .get('/repos/:user', (req, res) => {
+    if (!req.session.token) {
+      return res.status(403).json({ code: 403, message: 'Unauthorized!' })
+    }
+    const client = github.client(req.session.token)
+    client.user(req.params.user).reposAsync().then(data => {
+      res.json(data)
     })
   })
   .use(reactRouting)

@@ -3,14 +3,6 @@
     "razzle/babel"
   ],
   "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "libraryDirectory": "es",
-        "style": "css"
-      }
-    ],
     "transform-async-to-bluebird",
     "transform-promise-to-bluebird",
     "transform-runtime"

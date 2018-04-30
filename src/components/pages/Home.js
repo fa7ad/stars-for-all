@@ -5,18 +5,24 @@ import { Input, Button, Icon } from 'antd'
 
 import './Home.css'
 
-const UserInput = p => (
-  <label className='p-5 bg-white'>
-    GitHub Username: <Input
-      type='text'
-      placeholder='@fa7ad'
-      onChange={e => {
-        p.onType(e.currentTarget.value)
-      }}
-      addonAfter={<Icon type='enter' />}
-    />
-  </label>
-)
+const UserInput = props => {
+  let ref = null
+  const onEnter = e => props.onEnter(ref.input.value)
+
+  return (
+    <label className='p-5 bg-white' title='Enter a username and press Enter'>
+      GitHub Username:
+      <Input
+        type='text'
+        placeholder='fa7ad'
+        ref={el => (ref = el)}
+        onPressEnter={onEnter}
+        addonBefore={<Icon type='user-add' />}
+        addonAfter={<Icon type='enter' onClick={onEnter} />}
+      />
+    </label>
+  )
+}
 
 const GHAuthorize = p => (
   <Button onClick={e => window.location.replace(p.path)}>
@@ -33,7 +39,7 @@ class Home extends React.Component {
     return (
       <div className='Home al-c ju-c'>
         {this.state.loggedIn
-          ? <UserInput onType={text => console.log(text)} />
+          ? <UserInput onEnter={text => console.log(text)} />
           : <GHAuthorize path='/login' />}
       </div>
     )
