@@ -4,11 +4,13 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    meta(http-equiv="refresh", content=`${timeout}; url=${url}`)
+    meta(http-equiv="refresh", content=`3; url=${url}`)
     title= title
+    if assets.client.css
+      link(rel="stylesheet", href=assets.client.css)
     script.
       setTimeout(function () {
         window.location.replace("#{url}")
-      }, #{timeout}*1e3)
+      }, 3e3)
   body
     a(href=`${url}`)!= placeholder

@@ -13,9 +13,8 @@ export default function (routes, Component, assets) {
     if (!routeMatcher(req.url, '/') && !req.session.token) {
       res.status(403).render('redirect', {
         url: '/',
-        timeout: 3,
-        title: 'Unautorized, redirecting...',
-        placeholder: "Please click here, if you're not redirected automatically"
+        title: 'Unautorized request, redirecting...',
+        placeholder: 'Go Home!'
       })
       return next()
     }
