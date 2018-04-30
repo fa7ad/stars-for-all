@@ -1,8 +1,8 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import Home from './pages/Home'
-import Repos from './pages/Repos'
+import Home from '../Home/'
+import Repos from '../Repos/'
 
 import './App.css'
 

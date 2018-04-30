@@ -9,7 +9,7 @@ import compression from 'compression'
 import session from 'express-session'
 import makeMemoryStore from 'memorystore'
 
-import App, { routes } from './components/App'
+import App, { routes } from './components/App/'
 import makeRoutingMiddleware from './utils/reactRouting'
 
 // Handle GitHub auth using octonode
