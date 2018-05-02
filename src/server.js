@@ -1,51 +1,74 @@
-import url from 'url'
 import cors from 'cors'
 import path from 'path'
 import helmet from 'helmet'
 import Express from 'express'
 import github from 'octonode'
+import passport from 'passport'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import session from 'express-session'
-import makeMemoryStore from 'memorystore'
+import MemoryStore from 'memorystore'
+import { Strategy } from 'passport-github'
+import { ensureLoggedIn } from 'connect-ensure-login'
 
 import App, { routes } from './components/App/'
 import makeRoutingMiddleware from './utils/reactRouting'
 
-// Handle GitHub auth using octonode
-const authUrl = github.auth
-  .config({
-    id: process.env.RAZZLE_GITHUB_ID,
-    secret: process.env.RAZZLE_GITHUB_SECRET
-  })
-  .login(['user', 'repo'])
-const { query: { state } } = url.parse(authUrl, true)
+const {
+  HOST,
+  PORT,
+  RAZZLE_GITHUB_ID,
+  RAZZLE_GITHUB_SECRET,
+  RAZZLE_SESSION_SECRET
+} = process.env
 
-const MemoryStore = makeMemoryStore(session)
-const myMemStore = new MemoryStore({
-  checkPeriod: 3.6e6
+passport.use(
+  new Strategy(
+    {
+      clientID: RAZZLE_GITHUB_ID,
+      clientSecret: RAZZLE_GITHUB_SECRET,
+      callbackURL: `http://${HOST}:${PORT}/auth`
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      // TODO: put to database
+      return cb(null, profile)
+    }
+  )
+)
+
+passport.serializeUser(function (user, cb) {
+  cb(null, user)
 })
+
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj)
+})
+
 const sessionConf = {
-  store: myMemStore,
+  store: new MemoryStore(session)({
+    checkPeriod: 3.6e6
+  }),
   resave: true,
   saveUninitialized: false,
-  secret: process.env.RAZZLE_SESSION_SECRET
+  secret: RAZZLE_SESSION_SECRET
 }
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 const reactRouting = makeRoutingMiddleware(routes, App, assets)
 
-const corsOpts = {
-  origin (origin, callback) {
-    callback(null, true)
-  },
-  credentials: true
-}
 const server = new Express()
+
 server
   .use(helmet())
   .use(compression())
-  .use(cors(corsOpts))
+  .use(
+    cors({
+      origin (origin, callback) {
+        callback(null, true)
+      },
+      credentials: true
+    })
+  )
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
 
@@ -56,46 +79,23 @@ if (server.get('env') === 'production') {
 
 server
   .use(session(sessionConf))
+  .use(passport.initialize())
+  .use(passport.session())
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
-  .all('/login', (req, res) => {
-    res.redirect(302, authUrl)
-  })
-  .get('/auth', (req, res) => {
-    if (!state || state !== req.query.state) {
-      res.status(403).send('Failed to authenticate')
-    } else {
-      github.auth.login(req.query.code, function (err, token, headers) {
-        if (err) console.error(err)
-        Object.assign(req.session, { token })
-        req.session.save(err => {
-          if (err) throw err
-          res.redirect(`/?id=${req.sessionID}`)
-        })
-      })
+  .all('/login', passport.authenticate('github'))
+  .get(
+    '/auth',
+    passport.authenticate('github', { failureRedirect: '/' }),
+    function (req, res) {
+      res.redirect('/')
     }
-  })
-  .post('/verify', (req, res) => {
-    myMemStore.get(req.body.id, function (err, session) {
-      if (err || (!session && !req.session.token)) {
-        return res.json({ ok: false })
-      }
-
-      !session && req.session.token
-        ? Object.assign(session, req.session)
-        : Object.assign(req.session, session)
-
-      res.json({ ok: true })
-    })
-  })
-  .get('/repos/:user', (req, res) => {
-    if (!req.session.token) {
-      return res.status(403).send({ code: 403, message: 'Unauthorized!' })
-    }
-    const client = github.client(req.session.token)
+  )
+  .get('/repos/:user', ensureLoggedIn('/'), (req, res) => {
+    const client = github.client(req.session.token) // FIXME
     client.user(req.params.user).reposAsync().then(data => {
-      res.json(data)
+    //   res.json(data)
     })
   })
   .use(reactRouting)
