@@ -3,49 +3,47 @@ import path from 'path'
 import helmet from 'helmet'
 import Express from 'express'
 import github from 'octonode'
+import level from 'level-mem'
 import passport from 'passport'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import session from 'express-session'
 import MemoryStore from 'memorystore'
-import { Strategy } from 'passport-github'
+import { Strategy } from 'passport-github2'
 import { ensureLoggedIn } from 'connect-ensure-login'
 
 import App, { routes } from './components/App/'
 import makeRoutingMiddleware from './utils/reactRouting'
 
 const {
-  HOST,
-  PORT,
   RAZZLE_GITHUB_ID,
   RAZZLE_GITHUB_SECRET,
   RAZZLE_SESSION_SECRET
 } = process.env
+
+const db = level()
 
 passport.use(
   new Strategy(
     {
       clientID: RAZZLE_GITHUB_ID,
       clientSecret: RAZZLE_GITHUB_SECRET,
-      callbackURL: `http://${HOST}:${PORT}/auth`
+      callbackURL: `http://localhost:3000/auth`
     },
     function (accessToken, refreshToken, profile, cb) {
-      // TODO: put to database
-      return cb(null, profile)
+      const { id, profileUrl } = profile
+      db.put(id, JSON.stringify({ accessToken, profileUrl })).then(r => {
+        cb(null, profile)
+      })
     }
   )
 )
 
-passport.serializeUser(function (user, cb) {
-  cb(null, user)
-})
-
-passport.deserializeUser(function (obj, cb) {
-  cb(null, obj)
-})
+passport.serializeUser((user, cb) => cb(null, user))
+passport.deserializeUser((obj, cb) => cb(null, obj))
 
 const sessionConf = {
-  store: new MemoryStore(session)({
+  store: new (MemoryStore(session))({
     checkPeriod: 3.6e6
   }),
   resave: true,
@@ -63,9 +61,7 @@ server
   .use(compression())
   .use(
     cors({
-      origin (origin, callback) {
-        callback(null, true)
-      },
+      origin: 'http://localhost:3000',
       credentials: true
     })
   )
@@ -84,18 +80,45 @@ server
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
-  .all('/login', passport.authenticate('github'))
+  .all('/login', passport.authenticate('github', { scope: ['user', 'repo'] }))
   .get(
     '/auth',
     passport.authenticate('github', { failureRedirect: '/' }),
-    function (req, res) {
+    (req, res) => {
       res.redirect('/')
     }
   )
+  .get('/ok', ensureLoggedIn('/'), (req, res) => {
+    res.json({ ok: true })
+  })
+  .get('/info/:user', ensureLoggedIn('/'), (req, res) => {
+    db.get(req.user.id).then(JSON.parse).then(data => {
+      if (!data.hasOwnProperty('accessToken')) return res.redirect('/')
+      const client = github.client(data.accessToken)
+      client
+        .user(req.params.user)
+        .infoAsync()
+        .then(data => {
+          res.json(data)
+        })
+        .catch(e => {
+          res.status(404).json({})
+        })
+    })
+  })
   .get('/repos/:user', ensureLoggedIn('/'), (req, res) => {
-    const client = github.client(req.session.token) // FIXME
-    client.user(req.params.user).reposAsync().then(data => {
-    //   res.json(data)
+    db.get(req.user.id).then(JSON.parse).then(data => {
+      if (!data.hasOwnProperty('accessToken')) return res.redirect('/')
+      const client = github.client(data.accessToken)
+      client
+        .user(req.params.user)
+        .reposAsync()
+        .then(data => {
+          res.json(data)
+        })
+        .catch(e => {
+          res.status(404).json({})
+        })
     })
   })
   .use(reactRouting)

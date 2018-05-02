@@ -1,5 +1,4 @@
 import React from 'react'
-import qs from 'qs'
 import req from '../../utils/request'
 import { Input, Button, Icon } from 'antd'
 
@@ -46,16 +45,17 @@ class Home extends React.Component {
   }
 
   componentDidMount () {
-    const { location } = this.props
-    if (location && location.search) {
-      req
-        .url('/verify')
-        .json(qs.parse(location.search.slice(1)))
-        .post()
-        .json(res => {
-          this.setState({ loggedIn: res.ok })
-        })
-    }
+    if (this.state.loggedIn) return
+
+    req
+      .url('/ok')
+      .get()
+      .json(res => {
+        this.setState({ loggedIn: res.ok })
+      })
+      .catch(e => {
+        console.warn('Probably not logged in.')
+      })
   }
 }
 
