@@ -1,16 +1,23 @@
-import cors from 'cors'
 import path from 'path'
-import helmet from 'helmet'
+
 import Express from 'express'
 import github from 'octonode'
-import level from 'level-mem'
-import passport from 'passport'
+
+import cors from 'cors'
+import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import compression from 'compression'
+
 import session from 'express-session'
 import MemoryStore from 'memorystore'
+
+import passport from 'passport'
 import { Strategy } from 'passport-github2'
 import { ensureLoggedIn } from 'connect-ensure-login'
+
+import level from 'levelup'
+import memdown from 'memdown'
+import encode from 'encoding-down'
 
 import App, { routes } from './components/App/'
 import makeRoutingMiddleware from './utils/reactRouting'
@@ -21,7 +28,7 @@ const {
   RAZZLE_SESSION_SECRET
 } = process.env
 
-const db = level()
+const db = level(encode(memdown()))
 
 passport.use(
   new Strategy(

@@ -2424,7 +2424,7 @@ encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
 
-encoding-down@~4.0.0:
+encoding-down@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/encoding-down/-/encoding-down-4.0.0.tgz#f71c8addc51f0ed186784e79b8ac75cfaa44119f"
   dependencies:
@@ -4618,21 +4618,7 @@ level-iterator-stream@~2.0.0:
     readable-stream "^2.0.5"
     xtend "^4.0.0"
 
-level-mem@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/level-mem/-/level-mem-2.0.0.tgz#d1502184df6e09e6d4409dc4a1b384a8dba871f6"
-  dependencies:
-    level-packager "~2.1.1"
-    memdown "~2.0.0"
-
-level-packager@~2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/level-packager/-/level-packager-2.1.1.tgz#10b653decb67b0a09c4e961ae84f196edaad205a"
-  dependencies:
-    encoding-down "~4.0.0"
-    levelup "^2.0.0"
-
-levelup@^2.0.0:
+levelup@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/levelup/-/levelup-2.0.2.tgz#83dd22ffd5ee14482143c37cddfb8457854d3727"
   dependencies:
@@ -4934,7 +4920,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memdown@~2.0.0:
+memdown@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/memdown/-/memdown-2.0.0.tgz#40a4501b39890ae641513f2a94d7342d594c2d83"
   dependencies:
