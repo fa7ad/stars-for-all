@@ -28,7 +28,7 @@ const {
   RAZZLE_SESSION_SECRET
 } = process.env
 
-const db = level(encode(memdown()))
+const db = level(encode(memdown(), {valueEncoding: 'json'}))
 
 passport.use(
   new Strategy(
@@ -39,8 +39,8 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, profileUrl } = profile
-      db.put(id, JSON.stringify({ accessToken, profileUrl })).then(r => {
-        cb(null, profile)
+      db.put(id, { accessToken, profileUrl }).then(r => {
+        cb(null, {id, profileUrl})
       })
     }
   )
@@ -87,7 +87,7 @@ server
   .use(Express.static(process.env.RAZZLE_PUBLIC_DIR))
   .set('views', path.resolve(process.env.RAZZLE_PUBLIC_DIR, 'views'))
   .set('view engine', 'pug')
-  .all('/login', passport.authenticate('github', { scope: ['user', 'repo'] }))
+  .get('/login', passport.authenticate('github', { scope: ['user', 'repo'] }))
   .get(
     '/auth',
     passport.authenticate('github', { failureRedirect: '/' }),
@@ -95,11 +95,13 @@ server
       res.redirect('/')
     }
   )
-  .get('/ok', ensureLoggedIn('/'), (req, res) => {
+  .get('/ok', ensureLoggedIn(), (req, res) => {
     res.json({ ok: true })
   })
-  .get('/info/:user', ensureLoggedIn('/'), (req, res) => {
-    db.get(req.user.id).then(JSON.parse).then(data => {
+  .get('/info/:user', ensureLoggedIn(), (req, res) => {
+    console.log(req.user)
+    db.get(req.user.id).then(data => {
+      console.log(data)
       if (!data.hasOwnProperty('accessToken')) return res.redirect('/')
       const client = github.client(data.accessToken)
       client
@@ -113,8 +115,8 @@ server
         })
     })
   })
-  .get('/repos/:user', ensureLoggedIn('/'), (req, res) => {
-    db.get(req.user.id).then(JSON.parse).then(data => {
+  .get('/repos/:user', ensureLoggedIn(), (req, res) => {
+    db.get(req.user.id).then(data => {
       if (!data.hasOwnProperty('accessToken')) return res.redirect('/')
       const client = github.client(data.accessToken)
       client
