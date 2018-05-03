@@ -1,4 +1,4 @@
 import wretch from 'wretch'
 
 export default wretch()
-  .options({ credentials: 'include' })
+  .options({ credentials: 'include', mode: 'cors' })
