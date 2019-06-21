@@ -37,7 +37,7 @@
     "wretch": "^1.1.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-transform-async-to-bluebird": "^1.1.1",
     "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
     "standard": "^11.0.1"
