@@ -96,7 +96,14 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-abstract-leveldown@^4.0.0, abstract-leveldown@~4.0.0:
+abstract-leveldown@^6.0.0:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.0.3.tgz#b4b6159343c74b0c5197b2817854782d8f748c4a"
+  dependencies:
+    level-concat-iterator "~2.0.0"
+    xtend "~4.0.0"
+
+abstract-leveldown@~4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-4.0.3.tgz#cb636f4965fbe117f5c8b76a7d51dd42aaed0580"
   dependencies:
@@ -2424,13 +2431,14 @@ encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
 
-encoding-down@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/encoding-down/-/encoding-down-4.0.0.tgz#f71c8addc51f0ed186784e79b8ac75cfaa44119f"
+encoding-down@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/encoding-down/-/encoding-down-6.0.2.tgz#504820a85ca9d09e48cdacb2c8dd796a1f347a23"
   dependencies:
-    abstract-leveldown "^4.0.0"
-    level-codec "^8.0.0"
-    level-errors "^1.0.4"
+    abstract-leveldown "^6.0.0"
+    inherits "^2.0.3"
+    level-codec "^9.0.0"
+    level-errors "^2.0.0"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -4600,11 +4608,21 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-level-codec@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/level-codec/-/level-codec-8.0.0.tgz#3a4a0de06dae20c2f5a57b3372c7651e67083e03"
+level-codec@^9.0.0:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/level-codec/-/level-codec-9.0.1.tgz#042f4aa85e56d4328ace368c950811ba802b7247"
 
-level-errors@^1.0.4, level-errors@~1.1.0:
+level-concat-iterator@~2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/level-concat-iterator/-/level-concat-iterator-2.0.1.tgz#1d1009cf108340252cb38c51f9727311193e6263"
+
+level-errors@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/level-errors/-/level-errors-2.0.1.tgz#2132a677bf4e679ce029f517c2f17432800c05c8"
+  dependencies:
+    errno "~0.1.1"
+
+level-errors@~1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/level-errors/-/level-errors-1.1.2.tgz#4399c2f3d3ab87d0625f7e3676e2d807deff404d"
   dependencies:
