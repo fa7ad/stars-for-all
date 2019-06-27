@@ -104,7 +104,7 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-abstract-leveldown@^6.0.0:
+abstract-leveldown@^6.0.0, abstract-leveldown@~6.0.1:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.0.3.tgz#b4b6159343c74b0c5197b2817854782d8f748c4a"
   dependencies:
@@ -5008,11 +5008,11 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/memdown/-/memdown-2.0.0.tgz#40a4501b39890ae641513f2a94d7342d594c2d83"
+memdown@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/memdown/-/memdown-4.0.0.tgz#2b62ce2cefedcd8553665c410025c044cf8cb77e"
   dependencies:
-    abstract-leveldown "~4.0.0"
+    abstract-leveldown "~6.0.1"
     functional-red-black-tree "~1.0.1"
     immediate "~3.2.3"
     inherits "~2.0.1"

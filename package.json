@@ -21,7 +21,7 @@
     "helmet": "^3.18.0",
     "isomorphic-fetch": "^2.2.1",
     "levelup": "^2.0.2",
-    "memdown": "^2.0.0",
+    "memdown": "^4.0.0",
     "memorystore": "^1.6.0",
     "octonode": "^0.9.5",
     "parse-link-header": "^1.0.1",
