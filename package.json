@@ -20,7 +20,7 @@
     "express-session": "^1.15.6",
     "helmet": "^3.18.0",
     "isomorphic-fetch": "^2.2.1",
-    "levelup": "^4.0.2",
+    "levelup": "^4.1.0",
     "memdown": "^4.1.0",
     "memorystore": "^1.6.1",
     "octonode": "^0.9.5",
