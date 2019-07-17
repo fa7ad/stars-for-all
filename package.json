@@ -34,7 +34,7 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "url-pattern": "^1.0.3",
-    "wretch": "^1.5.3"
+    "wretch": "^1.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
