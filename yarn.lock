@@ -1042,9 +1042,9 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.21.4:
-  version "3.21.4"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.21.4.tgz#6e5e8c6edde25ddce0aa1c666f0d6ef8d04e821e"
+antd@^3.22.2:
+  version "3.22.2"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.22.2.tgz#ae8279d940decf062a0708880bc4340783b7b270"
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
     "@ant-design/icons" "~2.1.1"
@@ -1073,7 +1073,7 @@ antd@^3.21.4:
     rc-editor-mention "^1.1.13"
     rc-form "^2.4.5"
     rc-input-number "~4.4.5"
-    rc-mentions "~0.3.1"
+    rc-mentions "~0.4.0"
     rc-menu "~7.4.23"
     rc-notification "~3.3.1"
     rc-pagination "~1.20.5"
@@ -1081,7 +1081,7 @@ antd@^3.21.4:
     rc-rate "~2.5.0"
     rc-select "~9.2.0"
     rc-slider "~8.6.11"
-    rc-steps "~3.4.1"
+    rc-steps "~3.5.0"
     rc-switch "~1.9.0"
     rc-table "~6.7.0"
     rc-tabs "~9.6.4"
@@ -1091,10 +1091,10 @@ antd@^3.21.4:
     rc-tree-select "~2.9.1"
     rc-trigger "^2.6.2"
     rc-upload "~2.7.0"
-    rc-util "^4.6.0"
+    rc-util "^4.10.0"
     react-lazy-load "^3.0.13"
     react-lifecycles-compat "^3.0.4"
-    react-slick "~0.24.0"
+    react-slick "~0.25.2"
     resize-observer-polyfill "^1.5.1"
     shallowequal "^1.1.0"
     warning "~4.0.3"
@@ -7752,12 +7752,11 @@ rc-input-number@~4.4.5:
     rc-util "^4.5.1"
     rmc-feedback "^2.0.0"
 
-rc-mentions@~0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/rc-mentions/-/rc-mentions-0.3.1.tgz#7c54f8fbd2e203c56ff4e0a0191ce4a2c9a88c86"
+rc-mentions@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/rc-mentions/-/rc-mentions-0.4.0.tgz#483552c088290dbcddd059a0846e9f207ecc3539"
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
-    babel-runtime "^6.23.0"
     classnames "^2.2.6"
     rc-menu "^7.4.22"
     rc-trigger "^2.6.2"
@@ -7844,9 +7843,9 @@ rc-slider@~8.6.11:
     shallowequal "^1.0.1"
     warning "^4.0.3"
 
-rc-steps@~3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/rc-steps/-/rc-steps-3.4.1.tgz#7f7d127dd60f9fa92ece27c06035c9319c5cab8e"
+rc-steps@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/rc-steps/-/rc-steps-3.5.0.tgz#36b2a7f1f49907b0d90363884b18623caf9fb600"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.3"
@@ -7981,9 +7980,9 @@ rc-upload@~2.7.0:
     prop-types "^15.5.7"
     warning "4.x"
 
-rc-util@^4.0.4, rc-util@^4.1.0, rc-util@^4.1.1, rc-util@^4.3.0, rc-util@^4.4.0, rc-util@^4.5.0, rc-util@^4.5.1, rc-util@^4.6.0, rc-util@^4.7.0, rc-util@^4.8.1:
-  version "4.8.4"
-  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.8.4.tgz#e7baa462ed2647bd478745a9aec7353c0944813a"
+rc-util@^4.0.4, rc-util@^4.1.0, rc-util@^4.1.1, rc-util@^4.10.0, rc-util@^4.3.0, rc-util@^4.4.0, rc-util@^4.5.0, rc-util@^4.5.1, rc-util@^4.6.0, rc-util@^4.7.0, rc-util@^4.8.1:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.11.0.tgz#cf437dcff74ca08a8565ae14f0368acb3a650796"
   dependencies:
     add-dom-event-listener "^1.1.0"
     babel-runtime "6.x"
@@ -8095,9 +8094,9 @@ react-router@5.0.1:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-slick@~0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.24.0.tgz#1a4e078a82de4e9458255d9ce26aa6f3b17b168b"
+react-slick@~0.25.2:
+  version "0.25.2"
+  resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.25.2.tgz#56331b67d47d8bcfe2dceb6acab1c8fd5bd1f6bc"
   dependencies:
     classnames "^2.2.5"
     enquire.js "^2.1.6"
