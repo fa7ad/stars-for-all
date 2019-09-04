@@ -30,7 +30,7 @@
     "pug": "^2.0.4",
     "qs": "^6.8.0",
     "razzle": "^3.0.0",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "url-pattern": "^1.0.3",
