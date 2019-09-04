@@ -873,7 +873,14 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-abstract-leveldown@^6.0.0, abstract-leveldown@~6.0.0, abstract-leveldown@~6.0.1:
+abstract-leveldown@^6.0.0, abstract-leveldown@~6.1.0:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.1.1.tgz#f44bad5862d71c7b418110d7698ac25bedf24396"
+  dependencies:
+    level-concat-iterator "~2.0.0"
+    xtend "~4.0.0"
+
+abstract-leveldown@~6.0.0:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.0.3.tgz#b4b6159343c74b0c5197b2817854782d8f748c4a"
   dependencies:
@@ -5667,16 +5674,16 @@ mem@^4.0.0:
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
 
-memdown@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/memdown/-/memdown-4.1.0.tgz#4e667ec75ce524a8aa7391c10a5a357c6d4fde0e"
+memdown@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/memdown/-/memdown-5.0.0.tgz#ac4cf88401c14eda1a4e26e1b1d004cb733c6e1e"
   dependencies:
-    abstract-leveldown "~6.0.1"
+    abstract-leveldown "~6.1.0"
     functional-red-black-tree "~1.0.1"
     immediate "~3.2.3"
     inherits "~2.0.1"
     ltgt "~2.2.0"
-    safe-buffer "~5.1.1"
+    safe-buffer "~5.2.0"
 
 memory-fs@^0.4.0, memory-fs@^0.4.1, memory-fs@~0.4.1:
   version "0.4.1"
@@ -8520,9 +8527,13 @@ rxjs@^6.1.0, rxjs@^6.4.0:
   dependencies:
     tslib "^1.9.0"
 
-safe-buffer@5.1.2, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
+safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
+
+safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.0.tgz#b74daec49b1148f88c64b68d49b1e815c1f2f519"
 
 safe-regex@^1.1.0:
   version "1.1.0"
