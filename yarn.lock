@@ -873,14 +873,7 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-abstract-leveldown@^6.1.1, abstract-leveldown@~6.1.0:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.1.1.tgz#f44bad5862d71c7b418110d7698ac25bedf24396"
-  dependencies:
-    level-concat-iterator "~2.0.0"
-    xtend "~4.0.0"
-
-abstract-leveldown@~6.2.1:
+abstract-leveldown@^6.1.1, abstract-leveldown@~6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-6.2.1.tgz#37b655151e13c3d9b20fa3a04ce63ccaa345fce4"
   dependencies:
@@ -5675,11 +5668,11 @@ mem@^4.0.0:
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
 
-memdown@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/memdown/-/memdown-5.0.0.tgz#ac4cf88401c14eda1a4e26e1b1d004cb733c6e1e"
+memdown@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/memdown/-/memdown-5.1.0.tgz#608e91a9f10f37f5b5fe767667a8674129a833cb"
   dependencies:
-    abstract-leveldown "~6.1.0"
+    abstract-leveldown "~6.2.1"
     functional-red-black-tree "~1.0.1"
     immediate "~3.2.3"
     inherits "~2.0.1"
