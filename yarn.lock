@@ -9875,9 +9875,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-wretch@^1.5.5:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/wretch/-/wretch-1.5.5.tgz#0facb7c225aacf7fd145bdbb384d2963e6b23831"
+wretch@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/wretch/-/wretch-1.6.0.tgz#672fb637f9eda21f08ac656dc84a758e30093934"
 
 write-file-atomic@^2.1.0:
   version "2.4.3"
