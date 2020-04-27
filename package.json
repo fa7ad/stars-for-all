@@ -9,7 +9,7 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "antd": "^3.26.8",
+    "antd": "^4.1.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
