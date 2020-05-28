@@ -9,7 +9,7 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "antd": "^3.26.8",
+    "antd": "^4.1.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -18,26 +18,26 @@
     "encoding-down": "^6.3.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "helmet": "^3.21.2",
+    "helmet": "^3.22.0",
     "isomorphic-fetch": "^2.2.1",
     "levelup": "^4.3.2",
     "memdown": "^5.1.0",
-    "memorystore": "^1.6.1",
+    "memorystore": "^1.6.2",
     "octonode": "^0.9.5",
     "parse-link-header": "^1.0.1",
     "passport": "^0.4.1",
-    "passport-github2": "^0.1.11",
+    "passport-github2": "^0.1.12",
     "pug": "^2.0.4",
-    "qs": "^6.9.1",
+    "qs": "^6.9.3",
     "razzle": "^3.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "url-pattern": "^1.0.3",
-    "wretch": "^1.6.0"
+    "wretch": "^1.7.1"
   },
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-transform-async-to-bluebird": "^1.1.1",
     "babel-plugin-transform-promise-to-bluebird": "^2.0.0",
     "standard": "^14.3.3"
