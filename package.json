@@ -24,7 +24,7 @@
     "memdown": "^5.1.0",
     "memorystore": "^1.6.2",
     "octonode": "^0.9.5",
-    "parse-link-header": "^1.0.1",
+    "parse-link-header": "^2.0.0",
     "passport": "^0.4.1",
     "passport-github2": "^0.1.12",
     "pug": "^3.0.1",
